@@ -17,14 +17,16 @@ object Utils {
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
         */
+        if (firstName==null || lastName==null)
+            return "null null"
         if (firstName=="" || lastName=="" || firstName==" " || lastName ==" "){
-            return "null"
+            return "null null"
         }
         else if (firstName?.length!! >1 && lastName==null) {
-            return firstName?.first().toString()
+            return firstName?.first().toString().toUpperCase()
         }
         else
-            return firstName?.first().toString()+lastName?.first().toString()
+            return firstName?.first().toString().toUpperCase()+lastName?.first().toString().toUpperCase()
     }
 
     fun transliteration (fullName:String?, delimiter:String = " "):String {

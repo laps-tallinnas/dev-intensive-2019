@@ -10,6 +10,7 @@ abstract class BaseMessage (
     val date: Date = Date()
 ){
     abstract fun formatMessage ():String
+
     companion object Factory {
         var lastId:Int = -1
         fun makeMessage(from:User?, chat:Chat, date:Date = Date(), type:String="text", payload:Any?, isIncoming: Boolean=false):BaseMessage{
