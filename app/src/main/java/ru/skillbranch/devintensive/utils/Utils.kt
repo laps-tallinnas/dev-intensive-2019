@@ -19,12 +19,18 @@ object Utils {
         */
         if (firstName==null || lastName==null)
             return "null null"
-        if (firstName=="" || lastName=="" || firstName==" " || lastName ==" "){
-            return "null null"
-        }
-        else if (firstName?.length!! >1 && lastName==null) {
+
+        if (firstName?.length!! >1 && lastName==null) {
             return firstName?.first().toString().toUpperCase()
         }
+
+        if ((lastName=="" || lastName==" ") &&  firstName?.length!! >1 ){
+            return firstName?.first().toString().toUpperCase()
+        }
+
+        if ((firstName=="" || firstName==" ") &&  lastName?.length!! >1 ){
+                return lastName?.first().toString().toUpperCase()
+            }
         else
             return firstName?.first().toString().toUpperCase()+lastName?.first().toString().toUpperCase()
     }
