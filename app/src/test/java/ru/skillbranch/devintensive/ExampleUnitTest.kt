@@ -50,7 +50,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_full_parse() {
-        val parsed:Pair<String?, String?> = Utils.parseFullName("Andrey ")
+        val parsed:Pair<String?, String?> = Utils.parseFullName("Andrey Er")
         System.out.println("${parsed.first} ${parsed.second}")
     }
 
@@ -62,7 +62,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_transliteration() {
-        val translated:String = Utils.transliteration("Михаил Светлов")
+        val translated:String = Utils.transliteration("Петр Копытов")
         System.out.println  ("$translated")
     }
 
