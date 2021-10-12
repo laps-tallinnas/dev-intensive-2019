@@ -56,13 +56,13 @@ class ExampleUnitTest {
 
     @Test
     fun test_initials() {
-        val translated:String = Utils.toInitials(null, null)
+        val translated:String = Utils.toInitials(" ", "")
         System.out.println ("$translated")
     }
 
     @Test
     fun test_transliteration() {
-        val translated:String = Utils.transliteration("Mihail Svetlov")
+        val translated:String = Utils.transliteration("Михаил Светлов")
         System.out.println  ("$translated")
     }
 

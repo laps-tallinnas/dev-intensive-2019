@@ -20,7 +20,7 @@ object Utils {
         }
     }
 
-    fun toInitials (firstName:String?, lastName:String?):String{
+    fun toInitials (firstName:String?, lastName:String?):String {
         /*when(lastName) {
             null -> return "null"
         }
@@ -28,22 +28,27 @@ object Utils {
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
         */
-        if (firstName==null || lastName==null)
-            return "null null"
+        if (firstName == null && lastName == null)
+            return "null"
 
-        if (firstName?.length!! >1 && lastName==null) {
+        if (firstName?.length!! > 1 && lastName == null) {
             return firstName?.first().toString().toUpperCase()
         }
 
-        if ((lastName=="" || lastName==" ") &&  firstName?.length!! >1 ){
+        if (firstName == null || lastName == null)
+            return "null"
+
+        if ((lastName == "" || lastName == " ") && firstName?.length!! > 1) {
             return firstName?.first().toString().toUpperCase()
         }
 
-        if ((firstName=="" || firstName==" ") &&  lastName?.length!! >1 ){
-                return lastName?.first().toString().toUpperCase()
-            }
-        else
-            return firstName?.first().toString().toUpperCase()+lastName?.first().toString().toUpperCase()
+        if ((firstName == "" || firstName == " ") && lastName?.length!! > 1) {
+            return lastName?.first().toString().toUpperCase()
+        } else if (firstName?.length!! > 1 && lastName?.length!! > 1) {
+            return firstName?.first().toString().toUpperCase() + lastName?.first().toString()
+                .toUpperCase()
+        }
+        else return "null"
     }
 
     fun transliteration (fullName:String?, delimiter:String = " "):String {
