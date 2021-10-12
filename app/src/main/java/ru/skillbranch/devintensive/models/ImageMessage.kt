@@ -9,9 +9,9 @@ class ImageMessage(
     chat:Chat,
     isIncoming:Boolean = false,
     date: Date = Date(),
-    var image: String?
+    var image: String? ="https://anyurl.com"
 ):BaseMessage(id,from, chat, isIncoming, date)
 {
-    override fun formatMessage(): String ="${from?.firstName} " +
+    override fun formatMessage(): String ="${from?.firstName}" +
             "${if(isIncoming) "получил" else "отправил"} изображение\" $image ${date.humanizeDiff()}"
 }
