@@ -32,7 +32,7 @@ object Utils {
             return "null"
 
         if (firstName?.length!! > 1 && lastName == null) {
-            return firstName?.first().toString().toUpperCase()
+            return (firstName?.first().toString().toUpperCase())
         }
         if (firstName?.length!! > 1 && lastName?.length!!<1) {
             return firstName?.first().toString().toUpperCase()
@@ -62,12 +62,12 @@ object Utils {
           null -> return "null"
         }
 
-        val parts:List<String>? = fullName?.split(delimiter)
+        val parts:List<String>? = fullName?.split(" ")
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
         val newName = convertRU(firstName)
         val newLastName = convertRU(lastName)
-        return "$newName $newLastName"
+        return "$newName$delimiter$newLastName"
     }
 
     fun convertRU(cyr: String?): String {
