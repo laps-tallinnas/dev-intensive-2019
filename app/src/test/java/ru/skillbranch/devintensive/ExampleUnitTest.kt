@@ -2,7 +2,6 @@ package ru.skillbranch.devintensive
 
 import android.text.Html
 import org.junit.Test
-
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
@@ -11,7 +10,6 @@ import ru.skillbranch.devintensive.extensions.toUserView
 import ru.skillbranch.devintensive.models.*
 import ru.skillbranch.devintensive.utils.*
 import java.util.*
-import kotlin.time.TestClock
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -51,15 +49,21 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun test_full_parse() {
+        val parsed:Pair<String?, String?> = Utils.parseFullName("Andrey ")
+        System.out.println("${parsed.first} ${parsed.second}")
+    }
+
+    @Test
     fun test_initials() {
-        val translated:String = Utils.toInitials(null)
-        println ("$translated")
+        val translated:String = Utils.toInitials(null, null)
+        System.out.println ("$translated")
     }
 
     @Test
     fun test_transliteration() {
         val translated:String = Utils.transliteration("Mihail Svetlov")
-        println ("$translated")
+        System.out.println  ("$translated")
     }
 
     @Test
@@ -74,24 +78,24 @@ class ExampleUnitTest {
         val user = User.makeUser("Макеев Михаил")
         val txtMessage = BaseMessage.makeMessage(user, Chat("0"),payload ="any text message", type ="text", isIncoming = true)
         val imgMessage = BaseMessage.makeMessage(user, Chat("0"),payload ="any image url", type ="image", isIncoming = false)
-        println(txtMessage.formatMessage())
-        println(imgMessage.formatMessage())
+        System.out.println (txtMessage.formatMessage())
+        System.out.println (imgMessage.formatMessage())
         }
 
     @Test
     fun test_date (){
         val date: Date = Date()
-        println (date.format("hh 'o''clock' a, zzzz"))
+        System.out.println  (date.format("hh 'o''clock' a, zzzz"))
     }
 
     @Test
     fun check_date_add() {
         val date: Date = Date().add(2, TimeUnits.DAY)
-        print (date.format())
+        System.out.println  (date.format())
     }
 
     @Test
-    fun check_humanize_diff (date:Date): Unit {
+    fun check_humanize_diff () {
         val currentDate = Date()
 
     }

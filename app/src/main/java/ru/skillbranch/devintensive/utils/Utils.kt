@@ -1,12 +1,23 @@
 package ru.skillbranch.devintensive.utils
 
 object Utils {
-    // TODO: fix null things
     fun parseFullName (fullName:String?):Pair<String?, String?>{
+        when (fullName){
+            null -> return Pair (null, null)
+            "" -> return Pair (null, null)
+            " " -> return Pair (null, null)
+        }
         val parts:List<String>? = fullName?.split(" ")
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
+        if (lastName == firstName) {
+            return Pair (firstName, null)
+        }
+        else if (lastName =="")
+            return Pair (firstName, null)
+        else {
         return firstName to lastName
+        }
     }
 
     fun toInitials (firstName:String?, lastName:String?):String{
