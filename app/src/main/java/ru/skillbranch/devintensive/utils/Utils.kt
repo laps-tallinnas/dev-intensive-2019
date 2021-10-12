@@ -34,6 +34,12 @@ object Utils {
         if (firstName?.length!! > 1 && lastName == null) {
             return firstName?.first().toString().toUpperCase()
         }
+        if (firstName?.length!! > 1 && lastName?.length!!<1) {
+            return firstName?.first().toString().toUpperCase()
+        }
+        if (firstName==null  && lastName?.length!!>1) {
+            return lastName?.first().toString().toUpperCase()
+        }
 
         if (firstName == null || lastName == null)
             return "null"
