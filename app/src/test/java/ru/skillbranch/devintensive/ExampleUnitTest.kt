@@ -3,10 +3,7 @@ package ru.skillbranch.devintensive
 import android.text.Html
 import org.junit.Test
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.extensions.TimeUnits
-import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
-import ru.skillbranch.devintensive.extensions.toUserView
+import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
 import ru.skillbranch.devintensive.utils.*
 import java.util.*
@@ -96,7 +93,9 @@ class ExampleUnitTest {
 
     @Test
     fun check_humanize_diff () {
-        val currentDate = Date()
+        val currentDate = Date().add(362, TimeUnits.DAY)
+
+        System.out.println(currentDate.humanizeDiff())
 
     }
     }
