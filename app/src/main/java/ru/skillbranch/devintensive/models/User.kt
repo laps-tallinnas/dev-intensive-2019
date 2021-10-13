@@ -24,7 +24,6 @@ data class User(
     constructor (id:String) : this(id, "John", "Johnson")
 
     init {
-        println ("It's Alive")
     }
 
     fun printMe() : Unit {
