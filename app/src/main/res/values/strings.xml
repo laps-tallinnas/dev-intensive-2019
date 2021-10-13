@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Chat Devintensive</string>
+    <string name="image_bender_description">Dancing Bender</string>
+    <string name="gui_et_hint">Введите текст</string>
 </resources>

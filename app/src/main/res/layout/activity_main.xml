@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/tv_text"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,10 +19,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/bender" />
+        android:id="@+id/image_view"
+        android:layout_width="366dp"
+        android:layout_height="574dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:cropToPadding="true"
+        android:src="@drawable/bender_dance" />
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="381dp"
+            android:layout_height="match_parent"
+            android:hint="@string/gui_et_hint"
+            android:lines="1"
+            android:paddingLeft="@dimen/spacing_normal_16"
+            android:paddingTop="@dimen/spacing_normal_16"
+            android:paddingRight="@dimen/spacing_normal_16"
+            android:paddingBottom="@dimen/spacing_normal_16"
+            android:textColor="@color/color_gray"
+            tools:ignore="TouchTargetSizeCheck"
+            android:textSize="@dimen/font_normal_16"/>
+
+        <ImageView
+            android:id="@+id/send_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_send" />
+    </LinearLayout>
 
 </LinearLayout>
