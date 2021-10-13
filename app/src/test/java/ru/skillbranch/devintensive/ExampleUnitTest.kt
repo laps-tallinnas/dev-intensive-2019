@@ -3,10 +3,7 @@ package ru.skillbranch.devintensive
 import android.text.Html
 import org.junit.Test
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.extensions.TimeUnits
-import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
-import ru.skillbranch.devintensive.extensions.toUserView
+import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
 import ru.skillbranch.devintensive.utils.*
 import java.util.*
@@ -76,8 +73,8 @@ class ExampleUnitTest {
     @Test
     fun test_abstract_factory (){
         val user = User.makeUser("Макеев Михаил")
-        val txtMessage = BaseMessage.makeMessage(user, Chat("0"),payload ="any text message", type ="text", isIncoming = true)
-        val imgMessage = BaseMessage.makeMessage(user, Chat("0"),payload ="any image url", type ="image", isIncoming = false)
+        val txtMessage = BaseMessage.makeMessage(user, Chat("0"),Date(), "text","any text message",  isIncoming = true)
+        val imgMessage = BaseMessage.makeMessage(user, Chat("0"),Date(),"image", "any image url",  isIncoming = false)
         System.out.println (txtMessage.formatMessage())
         System.out.println (imgMessage.formatMessage())
         }
@@ -96,7 +93,9 @@ class ExampleUnitTest {
 
     @Test
     fun check_humanize_diff () {
-        val currentDate = Date()
+        val currentDate = Date().add(362, TimeUnits.DAY)
+
+        System.out.println(currentDate.humanizeDiff())
 
     }
     }

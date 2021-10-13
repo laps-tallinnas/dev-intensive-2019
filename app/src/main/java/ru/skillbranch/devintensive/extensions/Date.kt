@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.extensions
 
 import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -36,6 +37,17 @@ fun Date.add(value:Int, units:TimeUnits=TimeUnits.SECOND ):Date{
     return this
 }
 
-fun Date.humanizeDiff(): String {
-    return ""
+fun Date.humanizeDiff(date:Date=Date()): String {
+    val diff: Long = date.getTime()-this.getTime()
+    when(diff){
+        in 0*SECOND..1* SECOND -> return "только что"
+        in 1*SECOND..45*SECOND -> return "несколько секунд назад"
+        in 45*SECOND..75*SECOND -> return "минуту назад"
+        in 75*SECOND..45* MINUTE -> return (diff/MINUTE).toString()+ " минут назад"
+        in 45* MINUTE..75*MINUTE -> return "час назад"
+        in 75* MINUTE..22* HOUR -> return (diff/HOUR).toString()+" часов назад"
+        in 22* HOUR ..26* HOUR -> return "день назад"
+        in 26*HOUR..360* DAY -> return (diff/DAY).toString()+" дней назад"
+        else -> return "более года назад"
+    }
 }
