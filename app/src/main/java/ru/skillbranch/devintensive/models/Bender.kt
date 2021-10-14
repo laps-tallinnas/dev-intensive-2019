@@ -1,8 +1,9 @@
 package ru.skillbranch.devintensive.models
-
+import android.util.Log
 class Bender (var status:Status=Status.NORMAL, var question: Question = Question.NAME){
+    private val TAG:String  = "Bender"
     var retry : Int = 0
-
+    lateinit var total : Pair <String?, Boolean>
 
     fun askQuestion(): String {
         when (question){
@@ -18,55 +19,85 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
 
     fun listenAnswer(answer:String):Pair <String, Triple<Int, Int, Int>> {
-        if (question?.nextQuestion() == Question.PROFESSION) {
+        Log.d(TAG, "answer: {$answer}")
+        if (question?.nextQuestion() == Question.NAME) {
             return Pair("Отлично - ты справился\nНа этом все, вопросов больше нет", status.color)
         } else {
-            retry++
-            when (retry) {
-                3 -> {
-                    resetBender()
-                    return Pair("Это неправильный ответ. Давай все по новой\n${question.question}", status.color)
+            var total  = validateAnswer(answer);
+            if (total.second == true)
+                {
+                    retry++
+                    when (retry) {
+                        3 -> {
+                                resetBender()
+                                return Pair("Это неправильный ответ. Давай все по новой\n${question.question}", status.color)
+                        }
+                        else ->  {
+                            status = status.nextStatus()
+                            return Pair("Это неправильный ответ. ${question.question}", status.color)
+                        }
+                    }
+
                 }
-                else -> {
-                    validateAnswer(answer);
-                    status = status.nextStatus()
-                    return Pair("Это неправильный ответ. ${question.question}", status.color)
+                else {
+                    question= question.nextQuestion()
+                    return Pair("Отлично - ты справился. ${question.question}", status.color)
                 }
             }
         }
-    }
 
-    fun validateAnswer(): String {
+    fun validateAnswer(answer:String): Pair<String?, Boolean> {
         when (question) {
-            Question.NAME -> return validateName(question.question)
-            Question.PROFESSION -> return  validateProfession(question.question)
+            Question.NAME -> return validateName(answer)
+            Question.PROFESSION -> return  validateProfession(answer)
+            Question.MATERIAL -> return validateMaterial(answer)
+            Question.BDAY->return validateBday(answer)
+            Question.SERIAL->return validateSerial(answer)
+            Question.IDLE->return Pair (answer, false)
+            else -> return Pair ("Error",true)
         }
 
     }
 
-    fun validateName(answer:String):String {
+    fun validateName(answer:String):Pair<String, Boolean> {
+        if(answer.first().isUpperCase() && (answer in Question.NAME.answers)){
+            return Pair (answer, false)
+        }
+        else
+            return Pair("Имя должно начинаться с заглавной буквы", true)
+    }
+
+    fun validateProfession(answer:String):Pair<String, Boolean> {
         if(answer.first().isUpperCase()){
-            return answer
+            return Pair("Профессия должна начинаться со строчной буквы", true)
         }
         else
-            return "Имя должно начинаться с заглавной буквы"
+            return Pair (answer, false)
     }
 
-    fun validateProfession(answer:String):String {
-        if(answer.first().isUpperCase()){
-            return "Профессия должна начинаться со строчной буквы"
-        }
+
+    fun validateMaterial(answer:String):Pair<String, Boolean>  {
+        if(answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')){
+                return Pair ("Материал не должен содержать цифр", true)
+            }
         else
-            return answer
+        {return Pair (answer, false)}
     }
 
-    fun validateBirthday(answer:String):String {
-        val symbols = "0123456789"
-        if(answer.contains('1','2','3'){
-            return "Профессия должна начинаться со строчной буквы"
-        }
+    fun validateBday(answer:String):Pair<String, Boolean> {
+        if(answer.contains('a') || answer.contains('b') || answer.contains('c') || answer.contains('d') || answer.contains('e')|| answer.contains('f') || answer.contains('g')){
+                return Pair ("Год моего рождения должен содержать только цифры", true)
+            }
         else
-            return answer
+            return Pair (answer, false)
+    }
+
+    fun validateSerial(answer:String):Pair<String, Boolean> {
+        if(answer.length==7 && (answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7'))){
+                return Pair ("Серийный номер содержит только цифры, и их 7", true)
+            }
+        else
+            return Pair (answer, false)
     }
 
     fun resetBender():Unit
