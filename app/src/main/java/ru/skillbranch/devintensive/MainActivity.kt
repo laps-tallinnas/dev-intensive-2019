@@ -1,17 +1,19 @@
 package ru.skillbranch.devintensive
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.PorterDuff
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.models.Bender
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG:String  = "MainActivity"
@@ -36,8 +38,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Log.d(TAG, "status: $status, question:$question")
         benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
 
-        val (r,g,b,) = benderObj.status.color
-        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+        val (r, g, b) = benderObj.status.color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
         textTxt.setText(benderObj.askQuestion())
         sendBtn.setOnClickListener(this)
     }
@@ -67,8 +69,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (v?.id == R.id.iv_send){
             val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
             messageEt.setText("")
-            val (r,g,b) = color
-            benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+            val (r, g, b) = color
+            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
             textTxt.setText(phrase)
         }
 
@@ -80,6 +82,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
         outState?.putString("TEXT", et_message.text.toString())
-        Log.d(TAG,"called OnSaveInstanceState ${benderObj.status.name}, ${benderObj.question.name}")
+        Log.d(TAG, "called OnSaveInstanceState ${benderObj.status.name}, ${benderObj.question.name}")
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val imm: InputMethodManager = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
