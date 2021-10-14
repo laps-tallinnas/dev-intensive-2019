@@ -34,7 +34,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
                         }
                         else ->  {
                             status = status.nextStatus()
-                            return Pair("Это неправильный ответ. ${question.question}", status.color)
+                            return Pair("${total.first} ${question.question}", status.color)
                         }
                     }
 
@@ -60,7 +60,9 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     }
 
     fun validateName(answer:String):Pair<String, Boolean> {
-        if(answer.first().isUpperCase() && (answer in Question.NAME.answers)){
+        val first = answer[0]
+
+        if(first.isUpperCase() && (answer in Question.NAME.answers)){
             return Pair (answer, false)
         }
         else
@@ -68,11 +70,12 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     }
 
     fun validateProfession(answer:String):Pair<String, Boolean> {
-        if(answer.first().isUpperCase()){
-            return Pair("Профессия должна начинаться со строчной буквы", true)
+        val first = answer[0]
+        if(answer in Question.PROFESSION.valuesof() && first.isUpperCase()){
+            return Pair (answer, false)
         }
         else
-            return Pair (answer, false)
+            return Pair("Профессия должна начинаться со строчной буквы", true)
     }
 
 
@@ -93,17 +96,19 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     }
 
     fun validateSerial(answer:String):Pair<String, Boolean> {
-        if(answer.length==7 && (answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7'))){
-                return Pair ("Серийный номер содержит только цифры, и их 7", true)
+        if(answer.length==7 && (answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')) && (answer in Question.SERIAL.answers)){
+            return Pair (answer, false)
             }
         else
-            return Pair (answer, false)
+            return Pair ("Серийный номер содержит только цифры, и их 7", true)
     }
 
     fun resetBender():Unit
     {
         status=Status.NORMAL
         question = Question.NAME
+        retry = 0
+
     }
 
     enum class Status(val color: Triple<Int, Int, Int>) {
