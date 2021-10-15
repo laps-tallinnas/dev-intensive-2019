@@ -3,6 +3,8 @@ import android.util.Log
 class Bender (var status:Status=Status.NORMAL, var question: Question = Question.NAME){
     private val TAG:String  = "Bender"
     private var retry : Int = 0
+    private val success :String = "Отлично - ты справился"
+    private val end:String = "На этом все, вопросов больше нет"
 
     fun askQuestion(): String {
         return when (question){
@@ -20,7 +22,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     fun listenAnswer(answer:String):Pair <String, Triple<Int, Int, Int>> {
         Log.d(TAG, "answer: {$answer}")
         if (question.nextQuestion() == Question.NAME) {
-            return Pair("Отлично - ты справился\nНа этом все, вопросов больше нет", status.color)
+            return Pair("${success}\n${end}", status.color)
         } else {
             val total  = validateAnswer(answer)
             if (total.second)
@@ -40,7 +42,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
                 }
                 else {
                     question= question.nextQuestion()
-                    return Pair("Отлично - ты справился. ${question.question}", status.color)
+                    return Pair("${success}\n${question.question}", status.color)
                 }
             }
         }
