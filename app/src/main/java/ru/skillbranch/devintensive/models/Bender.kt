@@ -87,17 +87,22 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     }
 
     fun validateBday(answer:String):Pair<String, Boolean> {
-        if(answer.contains('a') || answer.contains('b') || answer.contains('c') || answer.contains('d') || answer.contains('e')|| answer.contains('f') || answer.contains('g')){
-                return Pair ("Год моего рождения должен содержать только цифры", true)
+        if(answer.matches("^[0-9]*$".toRegex()))
+        {
+            return Pair (answer, false)
             }
         else
-            return Pair (answer, false)
+            return Pair ("Год моего рождения должен содержать только цифры", true)
     }
 
     fun validateSerial(answer:String):Pair<String, Boolean> {
-        if(answer.length==7 && (answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')) && (answer in Question.SERIAL.answers)){
-            return Pair (answer, false)
+        if(answer.length==7 && answer.matches("^[0-9]*$".toRegex())){
+            if(answer in Question.SERIAL.answers)
+            {
+                return Pair (answer, false)
             }
+            return Pair ("Это неправильный ответ", true)
+        }
         else
             return Pair ("Серийный номер содержит только цифры, и их 7", true)
     }

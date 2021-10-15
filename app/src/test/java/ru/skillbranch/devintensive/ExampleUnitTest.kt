@@ -98,5 +98,22 @@ class ExampleUnitTest {
         System.out.println(currentDate.humanizeDiff())
 
     }
+
+    @Test
+    fun check_birthday () {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateBday("2465")
+        System.out.print(result)
+
     }
+
+    @Test
+    fun check_serial () {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateSerial("2716058")
+        System.out.print(result)
+
+    }
+
+}
 
