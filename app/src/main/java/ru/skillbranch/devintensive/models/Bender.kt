@@ -22,8 +22,8 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
 
     fun listenAnswer(answer:String):Pair <String, Triple<Int, Int, Int>> {
-        Log.d(TAG, "answer: {$answer}")
-        if (question.nextQuestion() == Question.NAME) {
+//        Log.d(TAG, "answer: {$answer}")
+        if (question == Question.IDLE) {
             return Pair("${success}\n${end}", status.color)
         } else {
             val total  = validateAnswer(answer)
@@ -37,7 +37,8 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
                         }
                         else ->  {
                             status = status.nextStatus()
-                            Pair("${total.first} ${question.question}", status.color)
+                            //TODO total.first
+                            Pair("${total.first}\n${question.question}", status.color)
                         }
                     }
 
@@ -61,7 +62,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
     }
 
-    private fun validateName(answer:String):Pair<String, Boolean> {
+    fun validateName(answer:String):Pair<String, Boolean> {
         val first = answer[0]
         return if(first.isUpperCase()){
             if(answer in Question.NAME.answers)
@@ -73,7 +74,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
             Pair("Имя должно начинаться с заглавной буквы", true)
     }
 
-    private fun validateProfession(answer:String):Pair<String, Boolean> {
+    fun validateProfession(answer:String):Pair<String, Boolean> {
         val first = answer[0]
         return if(first.isLowerCase()){
             if (answer in Question.PROFESSION.answers)
@@ -160,7 +161,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
             override fun nextQuestion(): Question =IDLE
         },
         IDLE(question = "На этом все, вопросов больше нет",listOf()) {
-            override fun nextQuestion(): Question = PROFESSION
+            override fun nextQuestion(): Question = IDLE
             };
 
 
