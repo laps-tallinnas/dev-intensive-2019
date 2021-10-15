@@ -12,6 +12,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
         return when (question){
             Question.NAME -> Question.NAME.question
             Question.PROFESSION -> Question.PROFESSION.question
+            Question.MATERIAL -> Question.MATERIAL.question
             Question.BDAY -> Question.BDAY.question
             Question.SERIAL-> Question.SERIAL.question
             Question.IDLE-> Question.IDLE.question

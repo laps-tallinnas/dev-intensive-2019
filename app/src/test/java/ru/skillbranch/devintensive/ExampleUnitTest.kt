@@ -142,9 +142,11 @@ class ExampleUnitTest {
     @Test
     fun check_positive () {
         val BenderObj = Bender()
-        System.out.println(BenderObj.listenAnswer("Aендер").first)
+//        System.out.println(BenderObj.listenAnswer("Aендер").first)
         System.out.println(BenderObj.listenAnswer("Бендер").first)
+//        System.out.println(BenderObj.listenAnswer("сгибальщикa").first)
         System.out.println(BenderObj.listenAnswer("сгибальщик").first)
+//        System.out.println(BenderObj.listenAnswer("металл2").first)
         System.out.println(BenderObj.listenAnswer("металл").first)
         System.out.println(BenderObj.listenAnswer("2993").first)
         System.out.println(BenderObj.listenAnswer("2716057").first)
