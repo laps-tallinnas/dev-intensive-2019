@@ -5,7 +5,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     private var retry : Int = 0
     private val success :String = "Отлично - ты справился"
     private val end:String = "На этом все, вопросов больше нет"
-    private val wrong_answer:String = "На этом все, вопросов больше нет"
+    private val wrong_answer:String = "Это неправильный ответ"
     private val resetString:String = "Это неправильный ответ. Давай все по новой"
 
     fun askQuestion(): String {
@@ -63,18 +63,25 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
     private fun validateName(answer:String):Pair<String, Boolean> {
         val first = answer[0]
-        return if(first.isUpperCase() && (answer in Question.NAME.answers)){
-            Pair (answer, false)
+        return if(first.isUpperCase()){
+            if(answer in Question.NAME.answers)
+            {
+                Pair (answer, false)
+            }
+            else Pair (wrong_answer, true)
         } else
             Pair("Имя должно начинаться с заглавной буквы", true)
     }
 
     private fun validateProfession(answer:String):Pair<String, Boolean> {
         val first = answer[0]
-        return if(answer in Question.PROFESSION.answers && first.isLowerCase()){
-            Pair (answer, false)
-        } else
+        return if(first.isLowerCase()){
+            if (answer in Question.PROFESSION.answers)
+                 Pair (answer, false)
+            else Pair (wrong_answer, true)
+        } else {
             Pair("Профессия должна начинаться со строчной буквы", true)
+        }
     }
 
 
@@ -82,15 +89,23 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
         return if(answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')){
             Pair ("Материал не должен содержать цифр", true)
         } else {
-            Pair (answer, false)
+            if (answer in Question.MATERIAL.answers) {
+                Pair (answer, false)
+            }
+            else Pair (wrong_answer, true)
         }
     }
 
     fun validateBday(answer:String):Pair<String, Boolean> {
-        return if(answer.matches("^[0-9]*$".toRegex())) {
-            Pair (answer, false)
-        } else
-            Pair ("Год моего рождения должен содержать только цифры", true)
+        if (answer.matches("^[0-9]*$".toRegex())) {
+            if (answer in Question.BDAY.answers) {
+                return Pair(answer, false)
+            }
+         else { return Pair(wrong_answer, true)
+                }
+        }
+        else
+            return Pair ("Год моего рождения должен содержать только цифры", true)
     }
 
     fun validateSerial(answer:String):Pair<String, Boolean> {
@@ -138,7 +153,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
         MATERIAL(question = "Из чего я сделан?",listOf("металл", "дерево", "metal", "iron", "wood")){
             override fun nextQuestion(): Question =BDAY
         },
-        BDAY(question = "Когда меня создали ?",listOf("2993")) {
+        BDAY(question = "Когда меня создали?",listOf("2993")) {
             override fun nextQuestion(): Question =SERIAL
         },
         SERIAL(question = "Мой серийный номер?", listOf("2716057")) {
