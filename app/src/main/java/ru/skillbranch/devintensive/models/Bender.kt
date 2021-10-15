@@ -61,7 +61,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
     fun validateName(answer:String):Pair<String, Boolean> {
         val first = answer[0]
-        if(first.isUpperCase() && (answer.toLowerCase() in Question.NAME.answers)){
+        if(first.isUpperCase() && (answer in Question.NAME.answers)){
             return Pair (answer, false)
         }
         else
