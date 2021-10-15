@@ -88,14 +88,15 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
 
     private fun validateMaterial(answer:String):Pair<String, Boolean>  {
-        return if(answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')){
-            Pair ("Материал не должен содержать цифр", true)
-        } else {
+        if (answer.matches("^[a-zA-Z]*$".toRegex())) {
             if (answer in Question.MATERIAL.answers) {
-                Pair (answer, false)
+                return Pair(answer, false)
             }
-            else Pair (wrong_answer, true)
+            else { return Pair(wrong_answer, true)
+            }
         }
+        else
+            return Pair ("Материал не должен содержать цифр", true)
     }
 
     fun validateBday(answer:String):Pair<String, Boolean> {

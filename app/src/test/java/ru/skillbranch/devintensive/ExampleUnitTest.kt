@@ -141,12 +141,15 @@ class ExampleUnitTest {
 
     @Test
     fun check_positive () {
+
+        System.out.println("asdasczxca9".matches("^[a-zA-Z]*$".toRegex()))
+
         val BenderObj = Bender()
 //        System.out.println(BenderObj.listenAnswer("Aендер").first)
         System.out.println(BenderObj.listenAnswer("Бендер").first)
 //        System.out.println(BenderObj.listenAnswer("сгибальщикa").first)
         System.out.println(BenderObj.listenAnswer("сгибальщик").first)
-//        System.out.println(BenderObj.listenAnswer("металл2").first)
+        System.out.println(BenderObj.listenAnswer("металл9").first)
         System.out.println(BenderObj.listenAnswer("металл").first)
         System.out.println(BenderObj.listenAnswer("2993").first)
         System.out.println(BenderObj.listenAnswer("2716057").first)
