@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         messageEt.setText(saved_text)
         sendBtn = iv_send
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
-        val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.PROFESSION.name
+        val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
         Log.d(TAG, "status: $status, question:$question")
         benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
 
