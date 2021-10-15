@@ -5,6 +5,8 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
     private var retry : Int = 0
     private val success :String = "Отлично - ты справился"
     private val end:String = "На этом все, вопросов больше нет"
+    private val wrong_answer:String = "На этом все, вопросов больше нет"
+    private val resetString:String = "Это неправильный ответ. Давай все по новой"
 
     fun askQuestion(): String {
         return when (question){
@@ -31,7 +33,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
                     return when (retry) {
                         3 -> {
                             resetBender()
-                            Pair("Это неправильный ответ. Давай все по новой\n${question.question}", status.color)
+                            Pair("${resetString}\n${question.question}", status.color)
                         }
                         else ->  {
                             status = status.nextStatus()
