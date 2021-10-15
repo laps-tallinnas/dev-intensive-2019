@@ -79,9 +79,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     // Not called if Activity will be closed by user.
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putString("STATUS", benderObj.status.name)
-        outState?.putString("QUESTION", benderObj.question.name)
-        outState?.putString("TEXT", et_message.text.toString())
+        outState.putString("STATUS", benderObj.status.name)
+        outState.putString("QUESTION", benderObj.question.name)
+        outState.putString("TEXT", et_message.text.toString())
         Log.d(TAG, "called OnSaveInstanceState ${benderObj.status.name}, ${benderObj.question.name}")
     }
 

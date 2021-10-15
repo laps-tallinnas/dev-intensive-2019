@@ -2,17 +2,16 @@ package ru.skillbranch.devintensive.models
 import android.util.Log
 class Bender (var status:Status=Status.NORMAL, var question: Question = Question.NAME){
     private val TAG:String  = "Bender"
-    var retry : Int = 0
-    lateinit var total : Pair <String?, Boolean>
+    private var retry : Int = 0
 
     fun askQuestion(): String {
-        when (question){
-            Question.NAME -> return Question.NAME.question
-            Question.PROFESSION -> return Question.PROFESSION.question
-            Question.BDAY -> return Question.BDAY.question
-            Question.SERIAL->return Question.SERIAL.question
-            Question.IDLE-> return Question.IDLE.question
-            else -> return question.question
+        return when (question){
+            Question.NAME -> Question.NAME.question
+            Question.PROFESSION -> Question.PROFESSION.question
+            Question.BDAY -> Question.BDAY.question
+            Question.SERIAL-> Question.SERIAL.question
+            Question.IDLE-> Question.IDLE.question
+            else -> question.question
         }
     }
 
@@ -20,21 +19,21 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
 
     fun listenAnswer(answer:String):Pair <String, Triple<Int, Int, Int>> {
         Log.d(TAG, "answer: {$answer}")
-        if (question?.nextQuestion() == Question.NAME) {
+        if (question.nextQuestion() == Question.NAME) {
             return Pair("Отлично - ты справился\nНа этом все, вопросов больше нет", status.color)
         } else {
-            var total  = validateAnswer(answer);
-            if (total.second == true)
+            val total  = validateAnswer(answer)
+            if (total.second)
                 {
                     retry++
-                    when (retry) {
+                    return when (retry) {
                         3 -> {
-                                resetBender()
-                                return Pair("Это неправильный ответ. Давай все по новой\n${question.question}", status.color)
+                            resetBender()
+                            Pair("Это неправильный ответ. Давай все по новой\n${question.question}", status.color)
                         }
                         else ->  {
                             status = status.nextStatus()
-                            return Pair("${total.first} ${question.question}", status.color)
+                            Pair("${total.first} ${question.question}", status.color)
                         }
                     }
 
@@ -46,53 +45,48 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
             }
         }
 
-    fun validateAnswer(answer:String): Pair<String?, Boolean> {
-        when (question) {
-            Question.NAME -> return validateName(answer)
-            Question.PROFESSION -> return  validateProfession(answer)
-            Question.MATERIAL -> return validateMaterial(answer)
-            Question.BDAY->return validateBday(answer)
-            Question.SERIAL->return validateSerial(answer)
-            Question.IDLE->return Pair (answer, false)
-            else -> return Pair ("Error",true)
+    private fun validateAnswer(answer:String): Pair<String?, Boolean> {
+        return when (question) {
+            Question.NAME -> validateName(answer)
+            Question.PROFESSION -> validateProfession(answer)
+            Question.MATERIAL -> validateMaterial(answer)
+            Question.BDAY-> validateBday(answer)
+            Question.SERIAL-> validateSerial(answer)
+            Question.IDLE-> Pair (answer, false)
         }
 
     }
 
-    fun validateName(answer:String):Pair<String, Boolean> {
+    private fun validateName(answer:String):Pair<String, Boolean> {
         val first = answer[0]
-        if(first.isUpperCase() && (answer in Question.NAME.answers)){
-            return Pair (answer, false)
-        }
-        else
-            return Pair("Имя должно начинаться с заглавной буквы", true)
+        return if(first.isUpperCase() && (answer in Question.NAME.answers)){
+            Pair (answer, false)
+        } else
+            Pair("Имя должно начинаться с заглавной буквы", true)
     }
 
-    fun validateProfession(answer:String):Pair<String, Boolean> {
+    private fun validateProfession(answer:String):Pair<String, Boolean> {
         val first = answer[0]
-        if(answer in Question.PROFESSION.answers && first.isLowerCase()){
-            return Pair (answer, false)
-        }
-        else
-            return Pair("Профессия должна начинаться со строчной буквы", true)
+        return if(answer in Question.PROFESSION.answers && first.isLowerCase()){
+            Pair (answer, false)
+        } else
+            Pair("Профессия должна начинаться со строчной буквы", true)
     }
 
 
-    fun validateMaterial(answer:String):Pair<String, Boolean>  {
-        if(answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')){
-                return Pair ("Материал не должен содержать цифр", true)
-            }
-        else
-        {return Pair (answer, false)}
+    private fun validateMaterial(answer:String):Pair<String, Boolean>  {
+        return if(answer.contains('1') || answer.contains('2') || answer.contains('3') || answer.contains('4') || answer.contains('5')|| answer.contains('6') || answer.contains('7')){
+            Pair ("Материал не должен содержать цифр", true)
+        } else {
+            Pair (answer, false)
+        }
     }
 
     fun validateBday(answer:String):Pair<String, Boolean> {
-        if(answer.matches("^[0-9]*$".toRegex()))
-        {
-            return Pair (answer, false)
-            }
-        else
-            return Pair ("Год моего рождения должен содержать только цифры", true)
+        return if(answer.matches("^[0-9]*$".toRegex())) {
+            Pair (answer, false)
+        } else
+            Pair ("Год моего рождения должен содержать только цифры", true)
     }
 
     fun validateSerial(answer:String):Pair<String, Boolean> {
@@ -107,8 +101,7 @@ class Bender (var status:Status=Status.NORMAL, var question: Question = Question
             return Pair ("Серийный номер содержит только цифры, и их 7", true)
     }
 
-    fun resetBender():Unit
-    {
+    private fun resetBender() {
         status=Status.NORMAL
         question = Question.NAME
         retry = 0
