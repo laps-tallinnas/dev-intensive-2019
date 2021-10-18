@@ -98,5 +98,65 @@ class ExampleUnitTest {
         System.out.println(currentDate.humanizeDiff())
 
     }
+
+    @Test
+    fun check_name() {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateName("Bender")
+        System.out.print(result)
+
     }
+
+    @Test
+    fun check_professional() {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateProfession("bender")
+        System.out.print(result)
+
+    }
+
+    @Test
+    fun check_material() {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateProfession("bender")
+        System.out.print(result)
+
+    }
+
+    @Test
+    fun check_birthday () {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateBday("246t")
+        System.out.print(result)
+
+    }
+
+    @Test
+    fun check_serial () {
+        val BenderObj = Bender()
+        val result:Pair <String?, Boolean> = BenderObj.validateSerial("2716058")
+        System.out.print(result)
+
+    }
+
+    @Test
+    fun check_positive () {
+
+        System.out.println("asdasczxca9".matches("^[a-zA-Z]*$".toRegex()))
+
+        val BenderObj = Bender()
+//        System.out.println(BenderObj.listenAnswer("Aендер").first)
+        System.out.println(BenderObj.listenAnswer("Бендер").first)
+//        System.out.println(BenderObj.listenAnswer("сгибальщикa").first)
+        System.out.println(BenderObj.listenAnswer("сгибальщик").first)
+        System.out.println(BenderObj.listenAnswer("металл9").first)
+        System.out.println(BenderObj.listenAnswer("металл").first)
+        System.out.println(BenderObj.listenAnswer("2993").first)
+        System.out.println(BenderObj.listenAnswer("2716057").first)
+        System.out.println(BenderObj.listenAnswer("-"))
+        System.out.println(BenderObj.listenAnswer("-"))
+
+    }
+
+}
 
