@@ -72,28 +72,46 @@
                 android:textColor="@color/color_white"/>
         </RelativeLayout>
     </FrameLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_white">
-            </TextView>
-    </LinearLayout>
+        android:padding="@dimen/spacing_normal_16">
+    <ImageView
+        android:id="@+id/iv_small_avatar"
+        android:layout_width="@dimen/round_40"
+        android:layout_height="@dimen/round_40"
+        android:src="@drawable/avatar">
+    </ImageView>
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:orientation="horizontal">
-        <TextView
+        <EditText
+            android:id="@+id/et1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_white">
-        </TextView>
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="7dp"
+            android:hint="Enter your name"
+            android:layout_alignRight="@id/iv_small_avatar">
+        </EditText>
+
+        <ImageView
+            android:id="@+id/iv_small_home"
+            android:layout_width="@dimen/round_40"
+            android:layout_height="@dimen/round_40"
+            android:src="@drawable/home"
+            android:layout_below="@id/iv_small_avatar">
+        </ImageView>
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:hint="Enter your address"
+            android:layout_marginEnd="7dp"
+            android:layout_below="@id/et1"
+            android:layout_alignRight="@id/iv_small_home">
+
+        </EditText>
+
+    </RelativeLayout>
 </LinearLayout>
 
